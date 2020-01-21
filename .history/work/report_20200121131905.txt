@@ -10,5 +10,4 @@ a user must add said key to there github profile. after which the user must be s
 origin to a the ssh origin, where I had issues with this because my clone was based on the https link. Because of this
 the all origins must be deleted and then set up again to contain the correct origin link. 
 after doing this I was able to continue as normal with the git. I also learned about version tagging which was a small
-but useful skill to have, considering I, with luck, will start working in just a few months as a consultant. I also 
-learned about git pages and have been fighting with it for a day. 
+but useful skill to have, considering I, with luck, will start working in just a few months as a consultant.  
