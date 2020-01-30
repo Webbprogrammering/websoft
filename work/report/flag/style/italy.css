@@ -1,0 +1,6 @@
+.flag {
+    width: 200px;
+    height: 140px;
+    position: relative;
+    background: linear-gradient(to right, #009246 0, #009246 33%, #FFF 33%, #FFF 66%, #ce2b37 66%, #ce2b37 100%);
+}

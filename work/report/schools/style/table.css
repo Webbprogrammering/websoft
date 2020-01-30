@@ -1,0 +1,21 @@
+table {
+    width:100%;
+}
+
+table tr:nth-child(odd) td{
+    background:#ccc;
+    color: #000;
+}
+table tr:nth-child(even) td{
+    background:#fff;
+    color: #000;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th {
+    background-size: 10px 10px;
+    background-image: url(/websoft/work/report/me/img/ppoverheat.gif);
+}

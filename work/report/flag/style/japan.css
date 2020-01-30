@@ -1,0 +1,19 @@
+.flag {
+    background: white;
+    width: 200px;
+    height: 140px;
+    position: relative;
+}
+
+.flag:after {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    display: inline-block;
+    background: #bd002e;
+    height: 80px;
+    width: 80px;
+}
