@@ -1,0 +1,16 @@
+{
+  "name": "a04",
+  "version": "1.0.0",
+  "description": "Task for Assignment04",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stylianos Gakis",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1"
+  }
+}
