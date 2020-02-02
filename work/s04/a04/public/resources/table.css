@@ -1,0 +1,25 @@
+table {
+    width: auto;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+td {
+    width: 50px;
+    text-align: center;
+}
+
+.picked {
+    background: green;
+}
+
+.lotto {
+    background: red;
+}
+
+.score {
+    border: 2px solid black;
+    background: linear-gradient(to right, green 0%, green 25%, red 25%, red 50%, green 50%, green 75%, red 75%, red 100%);
+}

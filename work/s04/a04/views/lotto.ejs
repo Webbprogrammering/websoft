@@ -1,10 +1,49 @@
+<head>
+    <link rel="stylesheet" href="./resources/style.css">
+    <link rel="stylesheet" href="./resources/table.css">
+</head>
 <h1>Welcome to lotto ejs!</h1>
 
 <p>These are the lotto draws this time!</p>
+<% let userPlayed = false
+try {
+    var userScore = score
+    userPlayed = true
+} catch (e) {
+}
+%>
 <ul>
-    <% for(const number of lottoNumbers) { %>
-        <li>
-            <%= number %>
-        </li>
-    <% } %>
+    <li style="width: auto; color: red">Red for lotto numbers</li>
+    <li style="width: auto; color: green">Green for numbers you picked</li>
+    <li style="width: auto;">Red/Green for numbers you found!</li>
 </ul>
+<% if (userPlayed) { %>
+    <h2>Your score was <%= userScore %>!</h2>
+<% } %>
+<table>
+    <% for (let i = 1; i <= 5; i++) { %>
+        <tr>
+            <% for (let j = 0; j < 7; j++) { %>
+                <% const number = ((j * 5) + i) %>
+                <td
+                <% if(userPlayed) { %>
+                    <% if (numbersFound.includes(number)) { %>
+                        class="score"
+                    <% } else if (lottoNumbers.includes(number)) { %>
+                        class="lotto"
+                    <% } else if (userInput.includes(number)) { %>
+                        class="picked"
+                            <% } %>
+                <% } else { %>
+                    <% if (lottoNumbers.includes(number)) { %>
+                        class="lotto"
+                        <% }} %>
+                >
+                    <%= number %></td>
+            <% } %>
+        </tr>
+    <% } %>
+</table>
+<% if (userPlayed && score === `7 out of 7`) { %>
+    <h1>YOU WON!</h1>
+<% } %>

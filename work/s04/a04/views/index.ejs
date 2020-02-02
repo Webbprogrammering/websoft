@@ -1,7 +1,11 @@
+<head>
+    <link rel="stylesheet" href="./resources/style.css">
+</head>
 <h1>This is the index for the Node server</h1>
 
 <p>You accessed this ejs website at: <%= date %></p>
 <form method="get" action="/lotto">
+    <input type="text" name="row" value="1,3,7,9,28,33,35">
     <button type="submit">Lotto numbers</button>
 </form>
 <a href="report/report/report.html">Report</a>

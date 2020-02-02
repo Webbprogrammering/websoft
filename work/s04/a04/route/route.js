@@ -30,7 +30,20 @@ router.get(`/`, (req, res) => {
 
 router.get("/lotto", (req, res) => {
     const lottoNumbers = generateLottoNumbers();
-    res.render(`lotto`, {lottoNumbers: lottoNumbers});
+    const userInputString = req.query.row;
+    if (userInputString === undefined) {
+        res.render(`lotto`, {lottoNumbers: lottoNumbers});
+        return;
+    }
+    const userInput = userInputString.split(",").map(Number);
+    const numbersFound = lottoNumbers.filter((value => userInput.includes(value)));
+    const result = {
+        score: (`${numbersFound.length} out of ${lottoNumbers.length}`),
+        lottoNumbers: lottoNumbers,
+        userInput: userInput,
+        numbersFound: numbersFound,
+    };
+    res.render(`lotto`, result);
 });
 
 router.get("/lotto-json", (req, res) => {
@@ -44,7 +57,7 @@ router.get("/lotto-json", (req, res) => {
     const numbersFound = lottoNumbers.filter((value => userInput.includes(value)));
     const result = {
         score: (`${numbersFound.length} out of ${lottoNumbers.length}`),
-        lottoDraw: lottoNumbers,
+        lottoNumbers: lottoNumbers,
         userInput: userInput,
         numbersFound: numbersFound,
     };
