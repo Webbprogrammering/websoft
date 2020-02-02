@@ -2,6 +2,12 @@ const table = document.getElementById('table');
 const schoolForm = document.getElementById("schoolForm");
 const schoolOptions = document.getElementById("schoolOptions");
 
+const Person = {
+    id: Object,
+    firstName: Object,
+    lastName: Object,
+};
+
 (function init() {
     populateRegionSchools();
     schoolForm.onsubmit = () => {
@@ -16,10 +22,8 @@ function clearTable() {
 }
 
 function fetchSchools(schoolCode) {
-    fetch("https://api.scb.se/UF0109/v2/skolenhetsregister/sv/kommun/" + schoolCode + ".json")
-    /*fetch("data/" + schoolCode + ".json")*/
+    fetch("https://rem.dbwebb.se/api/users/" + schoolCode)
         .then((response) => {
-            console.log("Something");
             return response.json();
         })
         .then((myJson) => {
@@ -28,31 +32,27 @@ function fetchSchools(schoolCode) {
         .catch(() => table.innerHTML = 'No data');
 }
 
-function appendToTable(SchoolResponse) {
+function appendToTable(response) {
     const tr = document.createElement('tr');
-    tr.innerHTML = '<th>Skolenhetskod</th> <th>Skolenhetsnamn</th> <th>KommunKod</th> <th>PeOrgNr</th> </tr>';
+    tr.innerHTML = '<th>ID</th><th>First Name</th><th>Last Name</th>';
     table.append(tr);
-    SchoolResponse.Skolenheter.forEach(function (Skolenheter) {
-        const tr = document.createElement('tr');
-        tr.innerHTML = '<td>' + Skolenheter.Skolenhetskod + '</td>' +
-            '<td>' + Skolenheter.Skolenhetsnamn + '</td>' +
-            '<td>' + Skolenheter.Kommunkod + '</td>' +
-            '<td>' + Skolenheter.PeOrgNr + '</td>';
-        table.append(tr);
-    });
+    const tr1 = document.createElement('tr');
+    tr1.innerHTML = '<td>' + response.id + '</td>' +
+        '<td>' + response.firstName + '</td>' +
+        '<td>' + response.lastName + '</td>';
+    table.append(tr1);
 }
 
 function populateRegionSchools() {
-    fetch('https://api.scb.se/UF0109/v2/skolenhetsregister/sv/kommun')
-    /*fetch('data/schools.json')*/
+    fetch(`https://rem.dbwebb.se/api/users`)
         .then((response) => {
             return response.json();
         })
         .then((myJson) => {
-            myJson.Kommuner.forEach(school => {
+            myJson.data.forEach(person => {
                 const element = document.createElement("option");
-                element.text = school.Namn;
-                element.value = school.Kommunkod;
+                element.text = `${person.firstName} ${person.lastName}`;
+                element.value = person.id;
                 schoolOptions.appendChild(element);
             });
         });

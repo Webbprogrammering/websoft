@@ -17,5 +17,6 @@ table, th, td {
 
 th {
     background-size: 10px 10px;
-    background-image: url(/websoft/work/report/me/img/ppoverheat.gif);
+    background: #ccc;
+    color: #000;
 }
