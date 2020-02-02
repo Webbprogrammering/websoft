@@ -2,13 +2,7 @@
 const express = require(`express`);
 const router = express.Router();
 
-router.get(`/`, (req, res) => {
-    let data = {};
-    data.date = new Date();
-    res.render(`index`, data);
-});
-
-router.get("/lotto", (req, res) => {
+function generateLottoNumbers() {
     let data = {
         lotto: []
     };
@@ -25,7 +19,36 @@ router.get("/lotto", (req, res) => {
             return a - b
         }
     );
-    res.render(`lotto`, data);
+    return data.lotto;
+}
+
+router.get(`/`, (req, res) => {
+    let data = {};
+    data.date = new Date();
+    res.render(`index`, data);
+});
+
+router.get("/lotto", (req, res) => {
+    const lottoNumbers = generateLottoNumbers();
+    res.render(`lotto`, {lottoNumbers: lottoNumbers});
+});
+
+router.get("/lotto-json", (req, res) => {
+    const lottoNumbers = generateLottoNumbers();
+    const userInputString = req.query.row;
+    if (userInputString === undefined) {
+        res.send(lottoNumbers);
+        return;
+    }
+    const userInput = userInputString.split(",").map(Number);
+    const numbersFound = lottoNumbers.filter((value => userInput.includes(value)));
+    const result = {
+        score: (`${numbersFound.length} out of ${lottoNumbers.length}`),
+        lottoDraw: lottoNumbers,
+        userInput: userInput,
+        numbersFound: numbersFound,
+    };
+    res.send(result);
 });
 
 module.exports = router;
