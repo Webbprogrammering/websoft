@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>schools</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="favicon.ico">
+</head>
+<script>
+   function createSchoolTable(){
+   const fetch = require('node-fetch')
+  var obj; 
+   var url = 'https://api.scb.se/UF0109/v2/skolenhetsregister/sv/kommun/1472' 
+  
+   fetch(url).then((response) =>{
+        return response.json();
+        console.log("response")
+   }).then((myJson)=> {
+     obj = myJson
+   });
+    console.log(obj)
+
+}
+function table
+</script>
+
+<body id = "body">
+    <input type="button" onclick="createSchoolTable()" value="Schools in Tibro !"/>
+    <p id="showschools"></p>
+    <table id="table" align="center" >
+        
+    </table>
+</body>
+
+</html>

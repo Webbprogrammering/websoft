@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>schools</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="favicon.ico">
+</head>
+<script>
+   const fetch = require('node-fetch')
+  var obj; 
+   var url = 'https://api.scb.se/UF0109/v2/skolenhetsregister/sv/kommun/1472' 
+  
+   fetch(url).then((response) =>{
+       return response.json();
+   }).then((myJson)=> {
+     obj = myJson
+   });
+    console.log(obj)
+   var schoolTable = document.getElementById('schoolTable');
+   for (var i = 0; i<obj.length; i++){
+    var tr ="<tr>";
+        if (obj[i].value.toString().substring(obj[i].value.toString().indexOf('.'), obj[i].value.toString().length) < 2) 
+        obj[i].value += "0";
+
+    /* Must not forget the $ sign */
+    tr += "<td>" + obj[i].key + "</td>" + "<td>$" + obj[i].value.toString() + "</td></tr>";
+
+    /* We add the table row to the table body */
+    tbody.innerHTML += tr;    
+   }
+
+   
+</script>
+
+<body>
+    <input type="button" onclick="createSchoolTable()" value="Schools in Tibro !"/>
+    <p id="show schools"></p>
+    <table>
+        <tbody id ="schoolTable"></tbody>
+    </table>
+</body>
+
+</html>
