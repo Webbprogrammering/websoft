@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>schools</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="favicon.ico">
+
+</head>
+<script>
+     var list = [ 
+            { "col_1": "val_11", "col_3": "val_13" }, 
+            { "col_2": "val_22", "col_3": "val_23" }, 
+            { "col_1": "val_31", "col_3": "val_33" } 
+        ];
+
+   var obj;
+   function createSchoolTable(){
+   const fetch = require('node-fetch')
+ 
+    
+   var url = 'https://api.scb.se/UF0109/v2/skolenhetsregister/sv/kommun/1472' 
+  
+   fetch(url).then((response) =>{
+        return response.json();
+        console.log("response")
+   }).then((myJson)=> {
+     obj = myJson
+   });
+    console.log(obj)
+
+}
+function tableCreatorTest(){
+        // Getting the all column names 
+        var cols = Headers(list, selector);   
+   
+   // Traversing the JSON data 
+   for (var i = 0; i < list.length; i++) { 
+       var row = $('<tr/>');    
+       for (var colIndex = 0; colIndex < cols.length; colIndex++) 
+       { 
+           var val = list[i][cols[colIndex]]; 
+             
+           // If there is any key, which is matching 
+           // with the column name 
+           if (val == null) val = "";   
+               row.append($('<td/>').html(val)); 
+       } 
+         
+       // Adding each row to the table 
+       $(selector).append(row); 
+   } 
+} 
+ 
+function Headers(list, selector) { 
+
+    var columns = []; 
+   var header = $('<tr/>'); 
+     
+   for (var i = 0; i < list.length; i++) { 
+       var row = list[i]; 
+         
+       for (var k in row) { 
+           if ($.inArray(k, columns) == -1) { 
+               columns.push(k); 
+                 
+               // Creating the header 
+               header.append($('<th/>').html(k)); 
+           } 
+       } 
+   } 
+     
+   // Appending the header to the table 
+   $(selector).append(header); 
+       return columns; 
+
+}
+</script>
+
+<body id = "body">
+    <input type="button" onclick="tableCreatorTest()" value="Schools in Tibro !"/>
+    <p id="showschools"></p>
+    <table id="table" align="center" >
+        
+    </table>
+</body>
+
+</html>

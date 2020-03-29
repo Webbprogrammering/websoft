@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>schools</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="favicon.ico">
+    <script src= 
+    "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> 
+        </script> 
+</head>
+<script>
+  
+
+   var list;
+   function createSchoolTable(){
+//    const fetch = require('node-fetch')
+ 
+    
+   var url = 'https://api.scb.se/UF0109/v2/skolenhetsregister/sv/kommun/1472' 
+  
+   fetch(url).then((response) =>{
+        return response.json();
+        console.log("response")
+   }).then((myJson)=> {
+     list = myJson
+   });
+    console.log(obj)
+    
+
+    var cols = []; 
+              
+              for (var i = 0; i < list.length; i++) { 
+                  for (var k in list[i]) { 
+                      if (cols.indexOf(k) === -1) { 
+                            
+                          // Push all keys to the array 
+                          cols.push(k); 
+                      } 
+                  } 
+              } 
+                
+              // Create a table element 
+              var table = document.createElement("table"); 
+                
+              // Create table row tr element of a table 
+              var tr = table.insertRow(-1); 
+                
+              for (var i = 0; i < cols.length; i++) { 
+                    
+                  // Create the table header th element 
+                  var theader = document.createElement("th"); 
+                  theader.innerHTML = cols[i]; 
+                    
+                  // Append columnName to the table row 
+                  tr.appendChild(theader); 
+              } 
+                
+              // Adding the data to the table 
+              for (var i = 0; i < list.length; i++) { 
+                    
+                  // Create a new row 
+                  trow = table.insertRow(-1); 
+                  for (var j = 0; j < cols.length; j++) { 
+                      var cell = trow.insertCell(-1); 
+                        
+                      // Inserting the cell at particular place 
+                      cell.innerHTML = list[i][cols[j]]; 
+                  } 
+              } 
+                
+              // Add the newely created table containing json data 
+              var el = document.getElementById("table"); 
+              el.innerHTML = ""; 
+              el.appendChild(table); 
+          }
+
+
+</script>
+
+<body id = "body">
+    <input type="button" onclick="createSchoolTable()" value="Schools in Tibro !"/>
+    <p id="showschools"></p>
+    <table id="table" >
+        
+    </table>
+</body>
+
+</html>
