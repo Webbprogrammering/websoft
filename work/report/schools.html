@@ -45,64 +45,18 @@ function tableBuilder(data){
 //   var loadData = fs.readFileSync('/home/john/Music/webprog/schoolsFromTibro.json', 'utf8');
 //  var data = JSON.parse(loadData);
 //  console.log(data)
-  $.getJSON("'/home/john/Music/webprog/work/report/schoolsFromTibro.json'", function(list){
-        //  var school_data = '';
-        //  $.each(data.Skolenheter, function(key, value){
-        //      school_data += '<tr>';
-        //          school_data += '<td>' + value.Skolenhetsnamn + '</td>';
-        //          school_data += '<td>' + value.Skolenhetskod + '</td>';
-        //          school_data += '<td>' + value.Kommunkod + '</td>';
-        //          school_data += '<td>' + value.PeOrgNr + '</td>';
-        //      school_data += '</tr>';
-        //      });
-        //  $('#school_table').append(school_data);
-
-      
-  var cols = []; 
-              
-              for (var i = 0; i < list.length; i++) { 
-                  for (var k in list[i]) { 
-                      if (cols.indexOf(k) === -1) { 
-                            
-                          // Push all keys to the array 
-                          cols.push(k); 
-                      } 
-                  } 
-              } 
-                
-              // Create a table element 
-              var table = document.createElement("table"); 
-                
-              // Create table row tr element of a table 
-              var tr = table.insertRow(-1); 
-                
-              for (var i = 0; i < cols.length; i++) { 
-                    
-                  // Create the table header th element 
-                  var theader = document.createElement("th"); 
-                  theader.innerHTML = cols[i]; 
-                    
-                  // Append columnName to the table row 
-                  tr.appendChild(theader); 
-              } 
-                
-              // Adding the data to the table 
-              for (var i = 0; i < list.length; i++) { 
-                    
-                  // Create a new row 
-                  trow = table.insertRow(-1); 
-                  for (var j = 0; j < cols.length; j++) { 
-                      var cell = trow.insertCell(-1); 
-                        
-                      // Inserting the cell at particular place 
-                      cell.innerHTML = list[i][cols[j]]; 
-                  } 
-              } 
-                
-              // Add the newely created table containing json data 
-              var el = document.getElementById("table"); 
-              el.innerHTML = ""; 
-              el.appendChild(table); 
+  $.getJSON('schoolsFromTibro.json', function(data){
+         var school_data = '';
+        console.log(data)
+         $.each(data.Skolenheter, function(key, value){
+             school_data += '<tr>';
+                 school_data += '<td>' + value.Skolenhetsnamn + '</td>';
+                 school_data += '<td>' + value.Skolenhetskod + '</td>';
+                 school_data += '<td>' + value.Kommunkod + '</td>';
+                 school_data += '<td>' + value.PeOrgNr + '</td>';
+             school_data += '</tr>';
+             });
+         $('#table').append(school_data);
             });
                   }
 </script>
@@ -111,7 +65,14 @@ function tableBuilder(data){
     <input type="button" onclick="tableBuilder()" value="Schools in Tibro !"/>
     <p id="showschools"></p>
     <table id="table" >
-        
+      <thead class="thead">
+        <tr>
+            <th>SkolenhetsName</th>
+            <th>Skolenhetskod</th>
+            <th>KommunKod</th>
+            <th>PeOrgNr</th>
+        </tr>
+    </thead>
     </table>
 
 </body>
