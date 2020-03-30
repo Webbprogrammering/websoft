@@ -9,13 +9,16 @@
     "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> 
         </script> 
 </head>
-<script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   
 
-   var list = "";
+
+
+<script>
    function createSchoolTable(){
-  //const fetch = require('node-fetch')
- 
+ const fetch = require('node-fetch')
+ const fs = require('fs');
     
    var url = 'https://api.scb.se/UF0109/v2/skolenhetsregister/sv/kommun/1472' 
   
@@ -23,13 +26,39 @@
         return response.json();
    }).then((myJson)=> {
     console.log(myJson)
+      fs.writeFile("schoolsFromTibro.json", JSON.stringify(myJson), 'utf8', function(err){
+     if(err){
+       console.log("an error has occured ")
+       return console.log(err)
+     }
+   console.log("file saved ")
+    });
    }).then((myJson)=>{
-       tableBuilder(myJson)
+      // var myJsonObject = myJson;
+      // console.log(myJsonObject);   
+ 
    });
-    
+   
 }
+
 function tableBuilder(data){ 
-    var cols = []; 
+//   var loadData = fs.readFileSync('/home/john/Music/webprog/schoolsFromTibro.json', 'utf8');
+//  var data = JSON.parse(loadData);
+//  console.log(data)
+  $.getJSON("'/home/john/Music/webprog/work/report/schoolsFromTibro.json'", function(list){
+        //  var school_data = '';
+        //  $.each(data.Skolenheter, function(key, value){
+        //      school_data += '<tr>';
+        //          school_data += '<td>' + value.Skolenhetsnamn + '</td>';
+        //          school_data += '<td>' + value.Skolenhetskod + '</td>';
+        //          school_data += '<td>' + value.Kommunkod + '</td>';
+        //          school_data += '<td>' + value.PeOrgNr + '</td>';
+        //      school_data += '</tr>';
+        //      });
+        //  $('#school_table').append(school_data);
+
+      
+  var cols = []; 
               
               for (var i = 0; i < list.length; i++) { 
                   for (var k in list[i]) { 
@@ -74,28 +103,17 @@ function tableBuilder(data){
               var el = document.getElementById("table"); 
               el.innerHTML = ""; 
               el.appendChild(table); 
-          }
-function tester(data){
-    var school_data = '';
-         $.each(data.Skolenheter, function(key, value){
-             school_data += '<tr>';
-                 school_data += '<td>' + value.Skolenhetsnamn + '</td>';
-                 school_data += '<td>' + value.Skolenhetskod + '</td>';
-                 school_data += '<td>' + value.Kommunkod + '</td>';
-                 school_data += '<td>' + value.PeOrgNr + '</td>';
-             school_data += '</tr>';
-             });
-         $('#school_table').append(school_data);
-}
-
+            });
+                  }
 </script>
 
 <body id = "body">
-    <input type="button" onclick="createSchoolTable()" value="Schools in Tibro !"/>
+    <input type="button" onclick="tableBuilder()" value="Schools in Tibro !"/>
     <p id="showschools"></p>
-    <table id="school_table" >
+    <table id="table" >
         
     </table>
+
 </body>
 
 </html>
